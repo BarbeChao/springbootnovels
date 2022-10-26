@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>超超小说门户平台</title>
+    <div th:include="common/css :: css_frag"></div>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/layui/2.7.6/dist/css/layui.css}">
+    <script type="text/javascript" th:src="@{/webjars/layui/2.7.6/dist/layui.js}"></script>
+    <style>
+        *{
+            border: 0;
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            background-color: #262626;
+        }
+        #head{
+            width: 100%;
+            height: 73px;
+            position: relative;
+
+            position: relative;
+            border-bottom: #575757 solid 1px;
+            background-color: #2f2f2f;
+        }
+        #logo{
+            position: absolute;
+            width: 13%;
+            height: 70px;
+            margin-left: 20%;
+            margin-top: 5px;
+        }
+        #logo img{
+            width: 100%;
+            height: 100%;
+        }
+        #input{
+            width: 20%;
+            height: 35px;
+            background-color: #3d3d3d;
+            color: #898989;
+            padding-left: 20px;
+            border-radius: 20px;
+            position: absolute;
+            margin-left: 40%;
+            margin-top: 26px;
+            line-height: 35px;
+        }
+
+        .bookBody .bookData{
+            width: 63%;
+            margin: auto;
+            background-color: #2f2f2f;
+            padding-top: 10px;
+        }
+        layui-tab-item{
+            position: relative;
+        }
+        .layui-tab-title{
+            border-bottom-width:0px;
+        }
+        .layui-tab-title li{
+            color: white;
+        }
+        .layui-tab-brief>.layui-tab-title .layui-this{
+            color: #920803;
+        }
+        .layui-tab-brief>.layui-tab-more li.layui-this:after, .layui-tab-brief>.layui-tab-title .layui-this:after{
+            border-bottom:2px solid #920803;
+        }
+
+        .dataRank{
+            width: 78px;
+            height: 150px;
+            margin-top: 20px;
+            margin-left: 30px;
+            margin-bottom: 25px;
+            float: left;
+        }
+        .datatu{
+            width: 78px;
+            height: 106px;
+        }
+        .datatu img{
+            width: 100%;
+            height: 100%;
+        }
+        .datatitle{
+            color: white;
+            font-size: 10px;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 5px;
+        }
+        .dataauthor{
+            color: #9c9999;
+            font-size: 5px;
+            text-align: center;
+        }
+        #title{
+            padding-top: 10px;
+            color: #a0a0a0;
+            border-top: 1px solid #a0a0a0;
+        }
+
+    </style>
+    <script type="text/javascript" th:src="@{/webjars/jquery/3.6.1/dist/jquery.js}"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap.js}"></script>
+</head>
+<body>
+
+<div id="head">
+    <div th:replace="common/head :: head_login"></div>
+    <div id="logo" onclick="window.location.href='/index'"><img th:src="@{/img/logo.png}"></div>
+    <div id="input">搜索</div>
+</div>
+
+<div class="bookBody">
+    <div class="bookData">
+        <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+            <ul class="layui-tab-title">
+                <li>科幻</li>
+                <li>文学</li>
+                <li>历史</li>
+                <li>军事</li>
+                <li>奇幻</li>
+                <li>都市</li>
+                <li>体育</li>
+                <li>经济</li>
+                <li>艺术</li>
+            </ul>
+            <div class="layui-tab-content" style="height: 430px;">
+                <div class="layui-tab-item">
+
+                </div>
+                <div class="layui-tab-item"></div>
+                <div class="layui-tab-item"></div>
+                <div class="layui-tab-item"></div>
+                <div class="layui-tab-item"></div>
+                <div class="layui-tab-item"></div>
+                <div class="layui-tab-item"></div>
+                <div class="layui-tab-item"></div>
+                <div class="layui-tab-item"></div>
+            </div>
+        </div>
+
+        <script>
+            layui.use('element', function(){
+                var element = layui.element;
+
+                //获取hash来切换选项卡，假设当前地址的hash为lay-id对应的值
+                var layid = location.hash.replace(/^#test1=/, '');
+                element.tabChange('test1', layid); //假设当前地址为：http://a.com#test1=222，那么选项卡会自动切换到“发送消息”这一项
+
+                //监听Tab切换，以改变地址hash值
+                element.on('tab(test1)', function(){
+                    location.hash = 'test1='+ this.getAttribute('lay-id');
+                });
+            });
+        </script>
+
+    </div>
+</div>
+
+<script type="text/javascript" th:inline="javascript">
+    let oLi = document.getElementsByTagName("li");
+    let oIte = document.getElementsByClassName("layui-tab-item");
+    $(document).ready(function () {
+        $("#odiv").css("margin-top","9px")
+    })
+
+    $("#input").click(function () {
+        window.location.href="/book/sousuo"
+    })
+
+    $(document).ready(function () {
+
+        let odiv = document.getElementsByClassName("layui-tab-item")
+        let j =[[${typeId}]];
+        oLi[j-1].classList.add("layui-this");
+        odiv[j-1].classList.add("layui-show")
+        $.ajax({
+                    url: "/type/book",
+                    type: "GET",
+                     data: {typeId:[[${typeId}]]},
+                     dataType: "json",
+                     success: function(data) {
+                         for (let i = 0; i < data.length; i++) {
+                             let Rankdiv = document.createElement("div");
+                             Rankdiv.className = "dataRank"
+                             Rankdiv.onclick = function () {
+                                 bookdetail(data[i].bookId);
+                             }
+                             let Tudiv = document.createElement("div");
+                             Tudiv.className = "datatu"
+                             let oImg = document.createElement("img");
+                             oImg.src = data[i].bookImg;
+
+                             let Descdiv = document.createElement("div");
+                             Descdiv.className = "datadesc";
+
+                             let Ptitle = document.createElement("p");
+                             Ptitle.className = "datatitle";
+                             Ptitle.innerHTML = data[i].bookName;
+
+                             let Pauthor = document.createElement("p");
+                             Pauthor.className = "dataauthor";
+                             Pauthor.innerHTML = data[i].authorName;
+
+                             Descdiv.append(Ptitle);
+                             Descdiv.append(Pauthor);
+                             Tudiv.append(oImg)
+                             Rankdiv.append(Tudiv);
+                             Rankdiv.append(Descdiv);
+                             $(".layui-tab-item")[j-1].append(Rankdiv);
+                         }
+                     }
+                 });
+    })
+
+    for(let z=0;z<oLi.length;z++){
+        if(z+1 != [[${typeId}]]){
+            oLi[z].onclick=function () {
+                $.ajax({
+                    url: "/type/book",
+                    type: "GET",
+                    data: {typeId:z+1},
+                    dataType: "json",
+                    success: function(data) {
+                        oIte[z].innerHTML=null;
+                        for (let i = 0; i < data.length; i++) {
+                            let Rankdiv = document.createElement("div");
+                            Rankdiv.className = "dataRank"
+                            Rankdiv.onclick = function () {
+                                bookdetail(data[i].bookId);
+                            }
+                            let Tudiv = document.createElement("div");
+                            Tudiv.className = "datatu"
+                            let oImg = document.createElement("img");
+                            oImg.src = data[i].bookImg;
+
+                            let Descdiv = document.createElement("div");
+                            Descdiv.className = "datadesc";
+
+                            let Ptitle = document.createElement("p");
+                            Ptitle.className = "datatitle";
+                            Ptitle.innerHTML = data[i].bookName;
+
+                            let Pauthor = document.createElement("p");
+                            Pauthor.className = "dataauthor";
+                            Pauthor.innerHTML = data[i].authorName;
+
+                            Descdiv.append(Ptitle);
+                            Descdiv.append(Pauthor);
+                            Tudiv.append(oImg)
+                            Rankdiv.append(Tudiv);
+                            Rankdiv.append(Descdiv);
+                            $(".layui-tab-item")[z].append(Rankdiv);
+                        }
+                    }
+                });
+            }
+        }
+
+    }
+
+    function bookdetail(bookId) {
+        let on = 1;
+        if([[${session.newUser}]]==null){
+            on=0
+        }
+        console.log(on)
+        window.location.href="/book/detail?bookId="+bookId+"&on="+on;
+    }
+</script>
+</body>
+</html>

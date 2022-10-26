@@ -1,0 +1,12 @@
+<div id="odiv" style="position: absolute; right:8%;margin-top: -40px;color: #999999" th:fragment="head_login">
+    <div th:if="${session.newUser==null}">
+        <a href="/book/login">登录</a>
+        <span>|</span>
+        <a href="/book/register">注册</a>
+    </div>
+    <div th:if="${session.newUser!=null}">
+            <a href="/userInfo" th:text="${session.newUser.name}"></a>
+    <span>|</span>
+    <a th:href="@{/remove/sessionUser}">退出</a>
+    </div>
+</div>

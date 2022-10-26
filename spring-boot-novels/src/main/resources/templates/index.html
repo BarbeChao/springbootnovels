@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>超超小说门户平台</title>
+    <div th:include="common/css :: css_frag"></div>
+
+    <style th:inline="text">
+            *{
+                margin: 0;
+                padding: 0;
+                border: 0;
+            }
+            body{
+                background-color: #343434;
+            }
+            .formclass{
+                text-align: center;
+                position: relative;
+            }
+            #keyword{
+                height: 50px;
+                width: 50%;
+                padding-left: 20px;
+                border-radius: 25px;
+                background-color: #616060;
+                border: #232423 solid 1px;
+                color: #bdbdbd;
+                outline: none;
+
+            }
+            .buttonclass{
+                position: absolute;
+                left: 70%;
+                top: 5px;
+                height: 40px;
+                width: 40px;
+                border-radius: 50%;
+                background-size:25px 25px;
+                background-repeat: no-repeat;
+                background-position: 50% 50%;
+                background-color: #616060;
+                background-image: url("[[@{/}]]img/enter1.png");
+            }
+            .buttonclass img{
+                top: -1px;
+                left: -1px;
+                height: 20px;
+                width: 20px;
+            }
+        #logo{
+            height: 100px;
+            width: 330px;
+            margin-top: 50px;
+            margin-left: 50px;
+            margin-bottom: 20px;
+        }
+        .bodyclass{
+            width: 100%;
+            background-color: #616060;
+            height: 590px;
+            margin-top: 100px;
+        }
+        .Rank{
+            width: 48%;
+            height: 500px;
+            float: left;
+            margin-top: 50px;
+            margin-left: 1%;
+        }
+        .Rank .title{
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 20px;
+            margin-left: 15px;
+        }
+        .Rank .RankBody{
+            width: 95%;
+            height: 400px;
+            margin: 30px auto;
+            border-top:1px solid #aaa2a2;
+            position: relative;
+        }
+        .Rank .RankBody li{
+            list-style: none;
+            column-count: inherit;
+        }
+        .leftRank{
+            position: absolute;
+            width: 48%;
+            height: 380px;
+            margin-top: 10px;
+            margin-left: 1%;
+        }
+            .rightRank{
+            position: absolute;
+            width: 48%;
+            height: 380px;
+            margin-left: 50%;
+            margin-top: 10px;
+        }
+        .dataRank{
+            width: 95%;
+            height: 126px;
+            margin: auto;
+            border-bottom: 1px solid #aaa2a2;
+            position: relative;
+        }
+        .datatu{
+            width: 78px;
+            height: 106px;
+            position: absolute;
+            margin-top: 8px;
+            margin-left: 20px;
+        }
+        .datatu img{
+            width: 100%;
+            height: 100%;
+        }
+        .datadesc{
+            position: absolute;
+            margin-top: 30px;
+            margin-left: 118px;
+
+        }
+        .datatitle{
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .dataauthor{
+            padding-left: 20px;
+            color: #9c9999;
+            font-size: 5px;
+        }
+        .classify{
+            width: 100%;
+            height: 250px;
+        }
+        .classTitle{
+            width: 60%;
+            font-size: 20px;
+            color: white;
+            border-bottom: 1px solid #848484;
+            display: block;
+            padding-top: 50px;
+            padding-bottom: 30px;
+            margin: auto;
+        }
+        .classify table{
+            margin: auto;
+            width: 60%;
+            text-align: center;
+        }
+
+        .classify table td{
+            height: 60px;
+            line-height: 60px;
+            padding-left: 10px;
+            font-size: 18px;
+            display:table-cell;
+            vertical-align:middle;
+        }
+        .classify table td:hover{
+            background-color: #212121;
+        }
+
+        .tdborder{
+            border-bottom: 1px solid #848484;
+        }
+        .new{
+            color: black;
+        }
+
+
+    </style>
+    <script type="text/javascript" src="webjars/jquery/3.6.1/dist/jquery.js"></script>
+</head>
+<body>
+
+    <div th:replace="common/head :: head_login"></div>
+<!--logo-->
+    <div id="logo">
+        <img th:src="@{img/logo.png}">
+    </div>
+<!--搜索-->
+    <div class="formclass ">
+        <form th:action="@{/book/search}" autocomplete="off">
+            <input type="text" name="keyword" id="keyword" class="inputclass" placeholder="输入您需要查找的书名">
+            <button onclick="searchBook()" type="button" class="buttonclass"></button>
+        </form>
+    </div>
+
+    <div class="bodyclass">
+        <div class="shelfRank Rank">
+            <p class="title">收藏排行榜</p>
+            <div class="RankBody">
+                <div class="leftRank leftOne">
+
+                </div>
+                <div class="rightRank rightOne">
+
+                </div>
+            </div>
+        </div>
+        <div class="sousuoRank Rank">
+            <p class="title">热度排行榜</p>
+            <div class="RankBody">
+                <div class="leftRank leftTow">
+
+                </div>
+                <div class="rightRank rightTow">
+
+                </div>
+            </div>
+    </div>
+    </div>
+    <div class="classify">
+        <p class="classTitle">小说分类</p>
+        <table id="tab" cellspacing=2  class="table" style=" color:white;line-height: 60px;padding-left: 10px;">
+
+        </table>
+    </div>
+
+    <script type="text/javascript" th:inline="javascript">
+        function searchBook() {
+            let keyword = $("#keyword").val();
+            window.location.href="/book/search?keyword="+keyword;
+        }
+
+        $(".buttonclass").mousemove(function () {
+            $(".buttonclass").css('background-image','url([[@{/}]]img/enter2.png)')
+        })
+        $(".buttonclass").mouseout(function () {
+            $(".buttonclass").css('background-image','url([[@{/}]]img/enter1.png)')
+        })
+
+        //收藏
+        $(document).ready(function () {
+
+            $.ajax({
+                url: "/redis/rank/Shelfnum",
+                type: "GET",
+                dataType: "json",
+                success: function (data) {
+                    for (let i=0;i<data.length;i++){
+                        if(i<3){
+                            let RankDiv = document.createElement("div");
+                            RankDiv.className="dataRank"
+                            RankDiv.onclick=function (){
+                                bookdetail(data[i].bookId);
+                            }
+                            let TuDiv = document.createElement("div");
+                            TuDiv.className="datatu";
+                            let oImg = document.createElement("img");
+                            oImg.src = data[i].bookImg;
+
+                            let DescDiv = document.createElement("div");
+                            DescDiv.className="datadesc"
+
+                            let TitleP = document.createElement("p");
+                            TitleP.className="datatitle";
+                            TitleP.innerHTML=i+1+"、"+data[i].bookName;
+
+                            let AuthorP = document.createElement("p");
+                            AuthorP.className="dataauthor";
+                            AuthorP.innerHTML=data[i].authorName;
+
+                            DescDiv.append(TitleP);
+                            DescDiv.append(AuthorP);
+                            TuDiv.append(oImg);
+
+                            RankDiv.append(TuDiv);
+                            RankDiv.append(DescDiv);
+                            $(".leftOne").append(RankDiv)
+                        }else if (i<6) {
+                            let RankDiv = document.createElement("div");
+                            RankDiv.className="dataRank";
+                            RankDiv.onclick=function (){
+                                bookdetail(data[i].bookId);
+                            }
+                            let TuDiv = document.createElement("div");
+                            TuDiv.className="datatu";
+                            let oImg = document.createElement("img");
+                            oImg.src = data[i].bookImg;
+
+                            let DescDiv = document.createElement("div");
+                            DescDiv.className="datadesc"
+
+                            let TitleP = document.createElement("p");
+                            TitleP.className="datatitle";
+                            TitleP.innerHTML=i+1+"、"+data[i].bookName;
+
+                            let AuthorP = document.createElement("p");
+                            AuthorP.className="dataauthor";
+                            AuthorP.innerHTML=data[i].authorName;
+
+                            DescDiv.append(TitleP);
+                            DescDiv.append(AuthorP);
+                            TuDiv.append(oImg);
+
+                            RankDiv.append(TuDiv);
+                            RankDiv.append(DescDiv);
+                            $(".rightOne").append(RankDiv)
+                        }
+                    }
+                }
+            });
+
+
+//热度
+            $.ajax({
+                url: "/redis/rank/Red",
+                type: "GET",
+                dataType: "json",
+                success: function (data) {
+                    for (let i=0;i<data.length;i++){
+                        if(i<3){
+                            let RankDiv = document.createElement("div");
+                            RankDiv.className="dataRank"
+                            RankDiv.onclick=function (){
+                                bookdetail(data[i].bookId);
+                            }
+                            let TuDiv = document.createElement("div");
+                            TuDiv.className="datatu";
+                            let oImg = document.createElement("img");
+                            oImg.src = data[i].bookImg;
+
+                            let DescDiv = document.createElement("div");
+                            DescDiv.className="datadesc"
+
+                            let TitleP = document.createElement("p");
+                            TitleP.className="datatitle";
+                            TitleP.innerHTML=i+1+"、"+data[i].bookName;
+
+                            let AuthorP = document.createElement("p");
+                            AuthorP.className="dataauthor";
+                            AuthorP.innerHTML=data[i].authorName;
+
+                            DescDiv.append(TitleP);
+                            DescDiv.append(AuthorP);
+                            TuDiv.append(oImg);
+
+                            RankDiv.append(TuDiv);
+                            RankDiv.append(DescDiv);
+                            $(".leftTow").append(RankDiv)
+                        }else if (i<6) {
+                            let RankDiv = document.createElement("div");
+                            RankDiv.className="dataRank";
+                            RankDiv.onclick=function (){
+                                bookdetail(data[i].bookId);
+                            }
+                            let TuDiv = document.createElement("div");
+                            TuDiv.className="datatu";
+                            let oImg = document.createElement("img");
+                            oImg.src = data[i].bookImg;
+
+                            let DescDiv = document.createElement("div");
+                            DescDiv.className="datadesc"
+
+                            let TitleP = document.createElement("p");
+                            TitleP.className="datatitle";
+                            TitleP.innerHTML=i+1+"、"+data[i].bookName;
+
+                            let AuthorP = document.createElement("p");
+                            AuthorP.className="dataauthor";
+                            AuthorP.innerHTML=data[i].authorName;
+
+                            DescDiv.append(TitleP);
+                            DescDiv.append(AuthorP);
+                            TuDiv.append(oImg);
+
+                            RankDiv.append(TuDiv);
+                            RankDiv.append(DescDiv);
+                            $(".rightTow").append(RankDiv)
+                        }
+                    }
+                }
+            });
+
+            //分类
+            $.ajax({
+                url: "/type/name",
+                type: "GET",
+                dataType: "json",
+                success: function (data) {
+                    console.log(data)
+                    let otr =null;
+                    for(let i=0;i<data.length;i++){
+                        if(i+1!=1&&i%3==0||i+1==9){
+                            console.log(2)
+                            $("#tab").append(otr)
+                        }
+                        if(i%3==0){
+                            console.log(1)
+                            otr = document.createElement("tr");
+                        }
+                        let otd = document.createElement("td");
+                        otd.className="tdborder";
+                        otd.innerHTML=data[i].typeName;
+                        otd.onclick=function(){
+                            window.location.href="/typelist?typeId="+data[i].typeId;
+                        }
+                        otr.append(otd);
+                    }
+                }
+                });
+
+        })
+
+        function bookdetail(bookId) {
+            let on = 1;
+            if([[${session.newUser}]]==null){
+                on=0
+            }
+            console.log(on)
+            window.location.href="/book/detail?bookId="+bookId+"&on="+on;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="会员注册"></title>
+    <link rel="stylesheet" href="/css/user.css">
+</head>
+<body class="">
+
+<div class="main box_center cf">
+    <div class="userBox cf">
+        <form method="post" th:action="@{/register}" id="form2">
+            <div class="user_l">
+                <h3 th:text="注册"></h3>
+                <ul class="log_list" style="list-style: none">
+                    <li><span id="LabErr"></span></li>
+                    <li><input name="userId" type="text" id="txtUName" class="s_input icon_name" placeholder="请输入您的手机号码"></li>
+                    <li><input name="name" type="text" id="txtName" class="s_input icon_key" placeholder="请输入昵称"></li>
+                    <li style="margin-bottom: 10px;margin-left: 50px">
+                        <input name="sex" type="radio" id="txtSex1" value="男"><label for="txtSex1">男</label>
+                        <input name="sex" type="radio" id="txtSex2" value="女"><label for="txtSex2">女</label>
+                    </li>
+                    <li><input name="age" type="password" id="txtAge" class="s_input icon_key" placeholder="请输入年龄"></li>
+                    <li><input name="userPassword" type="password" id="txtPassword" class="s_input icon_key" placeholder="请输入密码：6-20位字母/数字"></li>
+                    <li><input type="submit" name="btnRegister" value="注册" id="btnRegister" class="btn_red"></li>
+                </ul>
+            </div>
+        </form>
+        <div class="user_r">
+            <p class="tit">已有账号？</p>
+            <a href="/book/login" class="btn_ora_white">立即登录</a>
+            <div class="fast_login" style="display:none;">
+                <div class="fast_tit">
+                    <p class="lines"></p>
+                </div>
+
+        </div>
+    </div>
+</div>
+    <script src="/webjars/jquery/3.6.1/dist/jquery.js"></script>
+<script language="javascript" type="text/javascript">
+    $("#chkd").click();
+    $(function () {
+        $("#form2").submit(function () {
+            if ($("#txtUName").val() != "" && $("#txtPassword").val() != "" && $("#TxtSmsCode").val() != "") {
+            } else {
+                layer.open({
+                    content: '请填写全部资料',
+                    style: UserUtil.msgStyle,
+                    time: 2
+                });
+                return false;
+            }
+        });
+    });
+
+
+    $("#btnRegister").click(function () {
+        var username = $("#txtUName").val();
+        if (!username.text()) {
+            $("#LabErr").html("手机号不能为空！");
+            return;
+        }
+        if (!username.text()) {
+            $("#LabErr").html("手机号格式不正确！");
+            return;
+        }
+        var password = $("#txtPassword").val();
+        if (!password.text()) {
+            $("#LabErr").html("密码不能为空！");
+            return;
+        }
+        var velCode = $("#TxtChkCode").val();
+        if (!velCode.text()) {
+            $("#LabErr").html("验证码不能为空！");
+            return;
+        }
+    })
+</script>
+</div></body>
+</html>

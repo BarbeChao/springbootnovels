@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.luochao.dao.BookshelfMapper">
+  <resultMap id="BaseResultMap" type="com.luochao.domain.Bookshelf">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="book_id" jdbcType="VARCHAR" property="bookId" />
+  </resultMap>
+
+  <resultMap id="ResultMap" type="com.luochao.domain.Book">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="book_id" jdbcType="VARCHAR" property="bookId" />
+    <result column="book_name" jdbcType="VARCHAR" property="bookName" />
+    <result column="type_id" jdbcType="VARCHAR" property="typeId" />
+    <result column="author_id" jdbcType="VARCHAR" property="authorId" />
+    <result column="author_name" jdbcType="VARCHAR" property="authorName" />
+    <result column="book_img" jdbcType="VARCHAR" property="bookImg" />
+    <result column="book_desc" jdbcType="VARCHAR" property="bookDesc" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from bookshelf
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
+  <delete id="deleteByUserAndBook">
+    delete from bookshelf
+    where user_id = #{userId,jdbcType=VARCHAR}
+    and book_id = #{bookId,jdbcType=VARCHAR}
+  </delete>
+
+  <insert id="insert" parameterType="com.luochao.domain.Bookshelf">
+    insert into bookshelf ( user_id, book_id
+      )
+    values ( #{userId,jdbcType=VARCHAR}, #{bookId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.luochao.domain.Bookshelf">
+    update bookshelf
+    set user_id = #{userId,jdbcType=VARCHAR},
+      book_id = #{bookId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select id, user_id, book_id
+    from bookshelf
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectByUserAndBook" resultMap="BaseResultMap">
+    select id, user_id, book_id
+    from bookshelf
+    where user_id = #{userId,jdbcType=VARCHAR}
+    and book_id =#{bookId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, user_id, book_id
+    from bookshelf
+  </select>
+
+  <select id="selectAllByUser" resultMap="ResultMap">
+    SELECT b.id, b.book_id, b.book_name , b.type_id,b.author_id,b.author_name,b.book_img,b.book_desc
+    FROM bookshelf bb INNER JOIN book b
+    ON bb.book_id = b.book_id
+    WHERE bb.user_id=#{userId,jdbcType=VARCHAR}
+  </select>
+</mapper>

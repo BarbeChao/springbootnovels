@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>$Title$</title>
+    <style>
+        .dataRank{
+            width: 78px;
+            height: 150px;
+            margin-top: 20px;
+            margin-left: 30px;
+            margin-bottom: 25px;
+            float: left;
+        }
+        .datatu{
+            width: 78px;
+            height: 106px;
+        }
+        .datatu img{
+            width: 100%;
+            height: 100%;
+        }
+        .datatitle{
+            color: white;
+            font-size: 10px;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 5px;
+        }
+        .dataauthor{
+            color: #9c9999;
+            font-size: 5px;
+            text-align: center;
+        }
+        #title{
+            padding-top: 10px;
+            color: #a0a0a0;
+            border-top: 1px solid #a0a0a0;
+        }
+    </style>
+</head>
+<body>
+<div class="my_info cf">
+    <img id="imgLogo" class="user_big_head" th:src="@{/img/man.png}">
+    <div class="my_info_txt">
+        <p class="my_name" id="my_name" style="font-size: 20px;font-weight: bold;" th:text="${session.newUser.name}">1111
+        </p>
+        <ul class="my_list">
+            <li class="my_gold"><i>账户余额：</i><em class="red" id="accountBalance" th:text="${session.newUser.money}" style="margin-right: 10px;color: #ffaf18;">0</em>屋币<a href="/pay/index.html" class="btn_link" style="background-color: #761c19;color: white;padding: 3px;margin-left: 10px;">立即充值</a></li>
+            <li class="my_baonian"></li>
+        </ul>
+    </div>
+</div>
+<div class="books" style="padding-bottom: 20px">
+    <p id="title">我的书架</p>
+
+<!--    <div class="dataRank">-->
+<!--        <div class="datatu"><img th:src="@{/img/santi.jpg}"></div>-->
+<!--        <div class="datadesc">-->
+<!--            <p class="datatitle">1、三体</p>-->
+<!--            <p class="dataauthor">六六</p>-->
+<!--        </div>-->
+<!--    </div>-->
+
+
+
+</div>
+    <script type="text/javascript" th:inline="javascript">
+        $(document).ready(function () {
+            let xmlhttpThree= new XMLHttpRequest();
+            xmlhttpThree.open("GET","/book/select/"+[[${session.newUser.userId}]],true)
+            xmlhttpThree.send();
+            xmlhttpThree.onreadystatechange=function () {
+                if(xmlhttpThree.readyState==4&&xmlhttpThree.status==200){
+                    let resultList = xmlhttpThree.responseText;
+                    let resultJson = JSON.parse(resultList);
+                    for (let i =0;i<resultJson.length;i++){
+
+                            let Rankdiv = document.createElement("div");
+                             Rankdiv.className="dataRank"
+                            Rankdiv.onclick=function (){
+                                bookdetail(resultJson[i].bookId);
+                            }
+                            let Tudiv = document.createElement("div");
+                            Tudiv.className="datatu"
+                            let oImg = document.createElement("img");
+                            oImg.src=resultJson[i].bookImg;
+
+                            let Descdiv = document.createElement("div");
+                            Descdiv.className="datadesc";
+
+                            let Ptitle = document.createElement("p");
+                            Ptitle.className="datatitle";
+                            Ptitle.innerHTML=resultJson[i].bookName;
+
+                            let Pauthor = document.createElement("p");
+                                Pauthor.className="dataauthor";
+                                Pauthor.innerHTML=resultJson[i].authorName;
+
+                                Descdiv.append(Ptitle);
+                                Descdiv.append(Pauthor);
+                                Tudiv.append(oImg)
+                        Rankdiv.append(Tudiv);
+                        Rankdiv.append(Descdiv);
+                        $(".books").append(Rankdiv);
+                    }
+                }
+            }
+        })
+
+        function bookdetail(bookId) {
+            let on = 1;
+            if([[${session.newUser}]]==null){
+                on=0;
+            }
+            console.log(on)
+            window.location.href="/book/detail?bookId="+bookId+"&on="+on;
+        }
+    </script>
+</body>
+</html>

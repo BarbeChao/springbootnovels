@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="#page">
+
+
+    <div style="color: white; height: 300px;padding-left: 100px;padding-top: 30px">
+        <p>我的昵称:<span th:text="${session.newUser.name}">aa</span><a id="nameSet" style="margin-left: 10px;line-height: 43px">[修改]</a></p>
+        <p>我的性别:<span th:text="${session.newUser.sex}">aa</span><a id="sexSet" style="margin-left: 10px;line-height: 43px">[请选择]</a></p>
+        <p>我的年龄:<span th:text="${session.newUser.age}">aa</span><a id="ageSet" style="margin-left: 10px;line-height: 43px">[修改]</a></p>
+        <p>我的密码:<span >********</span><a id="passwordSet" style="margin-left: 10px;line-height: 43px">[修改密码]</a></p>
+        <p>当前状态<a style="margin-left: 10px;line-height: 10px;line-height: 43px" id="out">[退出登录]</a></p>
+    </div>
+
+    </div>
+
+<script type="text/javascript" th:inline="javascript">
+    $("#nameSet").click(function () {
+        $(".rightDiv").load("/namePage");
+    })
+
+    $("#sexSet").click(function () {
+        $(".rightDiv").load("/sexPage");
+    })
+
+    $("#ageSet").click(function () {
+        $(".rightDiv").load("/agePage");
+    })
+
+    $("#passwordSet").click(function () {
+        $(".rightDiv").load("/passwordPage");
+    })
+
+    $("#out").click(function () {
+        window.location.href="/remove/sessionUser";
+    })
+
+    $(document).ready(function () {
+        if([[${result}]]!=null){
+            if([[${result}]]=="修改成功"){
+                alert([[${result}]]+"\n"+"请重新登录");
+                window.location.href="/remove/sessionUser";
+            }else {
+                alert([[${result}]]);
+            }
+
+        }
+    })
+</script>
+</body>
+</html>

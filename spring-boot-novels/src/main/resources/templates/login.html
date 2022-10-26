@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title th:text="会员登录"></title>
+    <meta name="keywords" th:content="会员登录" />
+    <link rel="stylesheet" href="/css/user.css" />
+    <script type="text/javascript" src="/webjars/jquery/3.6.1/dist/jquery.js"></script>
+</head>
+<body>
+</div>
+<div class="main box_center cf">
+    <div class="userBox cf">
+        <div class="user_l">
+            <form method="post" th:action="@{/login}" id="form1">
+                <h3 th:text="登陆"></h3>
+                <p th:text="${results}"></p>
+                <ul class="log_list" style="list-style: none">
+                    <li><span id="LabErr"></span></li>
+                    <li><input name="userId" type="text" id="txtUName" placeholder="账号" class="s_input icon_name" /></li>
+                    <li><input name="userPassword" type="password" id="txtPassword" placeholder="密码" class="s_input icon_key" /></li>
+                    <li class="autologin cf"><label class="fl"><input id="autoLogin" type="checkbox"  /><em>下次自动登录</em></label></li>
+                    <li><input type="submit" name="btnLogin" value="登录" id="btnLogin" class="btn_red" /></li>
+                </ul>
+            </form>
+        </div>
+        <div class="user_r">
+            <p class="tit">还没有注册账号？</p>
+            <a href="/book/register" class="btn_ora_white">立即注册</a>
+        </div>
+    </div>
+</div>
+
+</div>
+
+
+</body>
+<script type="text/javascript" th:inline="javascript">
+
+    console.log([[${resutlts}]])
+    if([[${resutlts}]]!=null){
+        alert([[${resutlts}]]);
+    }
+    $("#txtPassword").blur(function () {
+        if($("#txtUName").val()!="" ){
+            if($("#txtPassword").val()!=""){
+                $.ajax({
+                             type: "GET",
+                             url: "/user/jasypt",
+                             data: {userId:$("#txtUName").val(),userPassword:$("#txtPassword").val()},
+                             dataType: "json",
+                             success: function(data){
+                                 $("#txtUName").val(data.JasyptUserId);
+                                 $("#txtPassword").val(data.JasyptUserPassword);
+
+                             }
+                         });
+            }
+
+        }
+    })
+</script>
+</html>

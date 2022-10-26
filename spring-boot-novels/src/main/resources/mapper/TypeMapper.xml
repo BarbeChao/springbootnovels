@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.luochao.dao.TypeMapper">
+  <resultMap id="BaseResultMap" type="com.luochao.domain.Type">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="type_id" jdbcType="VARCHAR" property="typeId" />
+    <result column="type_name" jdbcType="VARCHAR" property="typeName" />
+  </resultMap>
+
+  <resultMap id="ResultMap" type="com.luochao.domain.Book">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="book_id" jdbcType="VARCHAR" property="bookId" />
+    <result column="book_name" jdbcType="VARCHAR" property="bookName" />
+    <result column="type_id" jdbcType="VARCHAR" property="typeId" />
+    <result column="author_id" jdbcType="VARCHAR" property="authorId" />
+    <result column="author_name" jdbcType="VARCHAR" property="authorName" />
+    <result column="book_img" jdbcType="VARCHAR" property="bookImg" />
+    <result column="book_desc" jdbcType="VARCHAR" property="bookDesc" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from type
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.luochao.domain.Type">
+    insert into type (id, type_id, type_name
+      )
+    values (#{id,jdbcType=BIGINT}, #{typeId,jdbcType=VARCHAR}, #{typeName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.luochao.domain.Type">
+    update type
+    set type_id = #{typeId,jdbcType=VARCHAR},
+      type_name = #{typeName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select id, type_id, type_name
+    from type
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectByTypeId" parameterType="java.lang.String" resultMap="ResultMap">
+    SELECT b.* FROM TYPE t INNER JOIN book b ON b.type_id = t.type_id WHERE t.type_id = #{typeId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, type_id, type_name
+    from type
+  </select>
+</mapper>

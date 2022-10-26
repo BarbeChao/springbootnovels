@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div>
+        <p style="padding-left: 100px;padding-top: 50px;color: white;height: 241px">
+            <span style="color: #c6c6c6;font-weight: bold">我的性别:</span>
+            <input id="man" type="radio" name="sex" value="男"> 男生
+            <input id="woman" type="radio" name="sex" value="女"> 女生
+            <br>
+            <input id="input" style="margin-left: 30px;color:black;margin-top:20px;width: 50px;height: 30px" type="button" value="修改">
+        </p>
+    </div>
+    <script type="text/javascript" th:inline="javascript">
+        if([[${session.newUser.sex}]]=="男"){
+            $("#man").attr("checked",'checked')
+        }else {
+            $("#woman").attr("checked",'checked')
+        }
+        $("#input").click(function () {
+            $(".rightDiv").load("/sexSet?sex="+$('input:radio:checked').val());
+        })
+
+    </script>
+</body>
+</html>

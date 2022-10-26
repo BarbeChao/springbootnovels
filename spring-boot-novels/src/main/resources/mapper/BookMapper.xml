@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.luochao.dao.BookMapper">
+  <resultMap id="BaseResultMap" type="com.luochao.domain.Book">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="book_id" jdbcType="VARCHAR" property="bookId" />
+    <result column="book_name" jdbcType="VARCHAR" property="bookName" />
+    <result column="type_id" jdbcType="VARCHAR" property="typeId" />
+    <result column="author_id" jdbcType="VARCHAR" property="authorId" />
+    <result column="author_name" jdbcType="VARCHAR" property="authorName" />
+    <result column="book_img" jdbcType="VARCHAR" property="bookImg" />
+    <result column="book_desc" jdbcType="VARCHAR" property="bookDesc" />
+  </resultMap>
+
+  <resultMap id="ResultBookAndType" type="com.luochao.vo.BookDetailVo">
+    <result column="book_id" jdbcType="VARCHAR" property="bookId" />
+    <result column="book_name" jdbcType="VARCHAR" property="bookName" />
+    <result column="type_id" jdbcType="VARCHAR" property="typeId" />
+    <result column="author_id" jdbcType="VARCHAR" property="authorId" />
+    <result column="author_name" jdbcType="VARCHAR" property="authorName" />
+    <result column="book_img" jdbcType="VARCHAR" property="bookImg" />
+    <result column="book_desc" jdbcType="VARCHAR" property="bookDesc" />
+    <result column="type_name" jdbcType="VARCHAR" property="typeName"></result>
+  </resultMap>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from book
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.luochao.domain.Book">
+    insert into book (id, book_id, book_name, 
+      type_id, author_id, author_name, 
+      book_img, book_desc)
+    values (#{id,jdbcType=BIGINT}, #{bookId,jdbcType=VARCHAR}, #{bookName,jdbcType=VARCHAR}, 
+      #{typeId,jdbcType=VARCHAR}, #{authorId,jdbcType=VARCHAR}, #{authorName,jdbcType=VARCHAR}, 
+      #{bookImg,jdbcType=VARCHAR}, #{bookDesc,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.luochao.domain.Book">
+    update book
+    set book_id = #{bookId,jdbcType=VARCHAR},
+      book_name = #{bookName,jdbcType=VARCHAR},
+      type_id = #{typeId,jdbcType=VARCHAR},
+      author_id = #{authorId,jdbcType=VARCHAR},
+      author_name = #{authorName,jdbcType=VARCHAR},
+      book_img = #{bookImg,jdbcType=VARCHAR},
+      book_desc = #{bookDesc,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select id, book_id, book_name, type_id, author_id, author_name, book_img, book_desc
+    from book
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, book_id, book_name, type_id, author_id, author_name, book_img, book_desc
+    from book
+  </select>
+  <select id="selectByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select id, book_id, book_name, type_id, author_id, author_name, book_img, book_desc
+    from book
+    where book_name like concat('%',#{name,jdbcType=VARCHAR},'%')
+  </select>
+  <select id="selectById" parameterType="java.lang.String" resultMap="ResultBookAndType">
+    select book.*,type.type_name from book inner join type on book.type_id = type.type_id where book.book_id= #{bookId,jdbcType=VARCHAR}
+  </select>
+
+
+</mapper>

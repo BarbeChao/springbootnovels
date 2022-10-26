@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>超超小说门户平台</title>
+    <div th:include="common/css :: css_frag"></div>
+
+    <style th:inline="text">
+        *{
+            margin: 0;
+            padding: 0;
+            border: 0;
+        }
+        body{
+            background-color: #343434;
+        }
+        .formclass{
+            text-align: center;
+            position: relative;
+        }
+        #keyword{
+            height: 50px;
+            width: 50%;
+            padding-left: 20px;
+            border-radius: 25px;
+            background-color: #616060;
+            border: #232423 solid 1px;
+            color: #bdbdbd;
+            outline: none;
+
+        }
+        .buttonclass{
+            position: absolute;
+            left: 70%;
+            top: 5px;
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+            background-size:25px 25px;
+            background-repeat: no-repeat;
+            background-position: 50% 50%;
+            background-color: #616060;
+            background-image: url("[[@{/}]]img/enter1.png");
+        }
+        .buttonclass img{
+            top: -1px;
+            left: -1px;
+            height: 20px;
+            width: 20px;
+        }
+        #logo{
+            height: 100px;
+            width: 330px;
+            margin-top: 50px;
+            margin-left: 50px;
+            margin-bottom: 20px;
+        }
+        .bookdiv{
+            height: 800px;
+            margin-top: 20px;
+        }
+        .bookdiv .booklist{
+            margin: auto;
+            width: 50%;
+            border-radius: 30px;
+            background-color: #616060;
+            padding-top: 30px;
+            padding-bottom: 30px;
+        }
+        .bookdiv .booklist ul li{
+            height: 150px;
+            list-style: none;
+            border-bottom: #9e9e9e solid 1px;
+            padding-top: 20px;
+        }
+        .bookdiv .booklist ul li .bookone{
+            position: relative;
+            height: 110px;
+            width: 95%;
+            margin: auto;
+            color: #a5a5a5;
+        }
+        .bookdiv .booklist ul li .bookone span{
+            position: absolute;
+            width: 72px;
+            height: 110px;
+            display: inline-block;
+        }
+        .bookdiv .booklist ul li .bookone span img{
+            width: 100%;
+            height: 100%;
+        }
+        .bookdiv .booklist ul li .bookone div{
+            width: 85%;
+            height: 110px;
+            display: inline-block;
+            position: absolute;
+            margin-left: 80px;
+        }
+        .bookdiv .booklist ul li .bookone div .text{
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+        .bookdiv .booklist ul li .bookone div .taituo{
+            font-weight: bold;
+            font-size: 15px;
+            color: white;
+        }
+    </style>
+    <script type="text/javascript" src="/webjars/jquery/3.6.1/dist/jquery.js"></script>
+</head>
+<body>
+<!--logo-->
+<div id="logo">
+    <img onclick="window.location.href='/index'" th:src="@{/img/logo.png}">
+</div>
+<!--搜索-->
+<div class="formclass ">
+    <form th:action="@{/book/search}" autocomplete="off">
+        <input type="text" name="keyword" id="keyword" class="inputclass" placeholder="输入您需要查找的书名">
+        <button onclick="searchBook()" type="button" class="buttonclass"></button>
+    </form>
+</div>
+<!--书本列表-->
+<div class="bookdiv">
+    <div class="booklist">
+        <ul id="oul">
+<!--&lt;!&ndash;=================================================&ndash;&gt;-->
+<!--            <li>-->
+<!--                <div class="bookone">-->
+<!--                    <span><img th:src="@{/img/santi.jpg}"></span>-->
+<!--                    <div>-->
+<!--                        <p class="taituo">三体（全集）</p>-->
+<!--                        <p>刘慈欣</p>-->
+<!--                        <p class="text">每个人的书架上都该有套《三体》！关于宇宙最狂野的想象！就是它！征服世界的中国科幻神作！包揽九项世界顶级科幻大奖！出版16个语种，横扫30国读者！奥巴马、雷军、马化腾、周鸿袆、潘石屹、扎克伯格……强推！刘慈欣获得2018年度克拉克想象力贡献社会奖！刘慈欣是中国科幻小说的最主要代表作家，亚洲首位世界科幻大奖“雨果奖”得主，被誉为中国科幻的领军人物。</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </li>-->
+<!--&lt;!&ndash;=================================================&ndash;&gt;-->
+<!--            <li>-->
+<!--                <div class="bookone">-->
+<!--                    <span><img th:src="@{/img/santi.jpg}"></span>-->
+<!--                    <div>-->
+<!--                        <p class="taituo">三体（全集）</p>-->
+<!--                        <p>刘慈欣</p>-->
+<!--                        <p class="text">每个人的书架上都该有套《三体》！关于宇宙最狂野的想象！就是它！征服世界的中国科幻神作！包揽九项世界顶级科幻大奖！出版16个语种，横扫30国读者！奥巴马、雷军、马化腾、周鸿袆、潘石屹、扎克伯格……强推！刘慈欣获得2018年度克拉克想象力贡献社会奖！刘慈欣是中国科幻小说的最主要代表作家，亚洲首位世界科幻大奖“雨果奖”得主，被誉为中国科幻的领军人物。</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </li>-->
+<!--&lt;!&ndash;=================================================&ndash;&gt;-->
+<!--            <li>-->
+<!--                <div class="bookone">-->
+<!--                    <span><img th:src="@{/img/santi.jpg}"></span>-->
+<!--                    <div>-->
+<!--                        <p class="taituo">三体（全集）</p>-->
+<!--                        <p>刘慈欣</p>-->
+<!--                        <p class="text">每个人的书架上都该有套《三体》！关于宇宙最狂野的想象！就是它！征服世界的中国科幻神作！包揽九项世界顶级科幻大奖！出版16个语种，横扫30国读者！奥巴马、雷军、马化腾、周鸿袆、潘石屹、扎克伯格……强推！刘慈欣获得2018年度克拉克想象力贡献社会奖！刘慈欣是中国科幻小说的最主要代表作家，亚洲首位世界科幻大奖“雨果奖”得主，被誉为中国科幻的领军人物。</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </li>-->
+<!--=================================================-->
+<!--            <li class="oLi" onclick="bookdetail()">-->
+<!--                <div class="bookone">-->
+<!--                    <span><img th:src="@{/img/santi.jpg}"></span>-->
+<!--                    <div>-->
+<!--                        <p class="taituo">三体（全集）</p>-->
+<!--                        <p>刘慈欣</p>-->
+<!--                        <p class="text">每个人的书架上都该有套《三体》！关于宇宙最狂野的想象！就是它！征服世界的中国科幻神作！包揽九项世界顶级科幻大奖！出版16个语种，横扫30国读者！奥巴马、雷军、马化腾、周鸿袆、潘石屹、扎克伯格……强推！刘慈欣获得2018年度克拉克想象力贡献社会奖！刘慈欣是中国科幻小说的最主要代表作家，亚洲首位世界科幻大奖“雨果奖”得主，被誉为中国科幻的领军人物。</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </li>-->
+<!--&lt;!&ndash;=================================================&ndash;&gt;-->
+        </ul>
+    </div>
+</div>
+
+<script type="text/javascript" th:inline="javascript">
+    function searchBook() {
+        let keyword = $("#keyword").val();
+        window.location.href="/book/search?keyword="+keyword;
+    }
+
+    $(document).ready(function () {
+        console.log([[${bookVos}]])
+        for (let i=0;i<[[${bookVos}]].length;i++){
+            $("#oul").append("<li class='oLi' onclick=\"bookdetail('"+[[${bookVos}]][i].bookId+"')\">\n" +
+                "                <div class=\"bookone\">\n" +
+                "                    <span><img src=\""+[[${bookVos}]][i].bookImg+"\"></span>\n" +
+                "                    <div>\n" +
+                "                        <p class=\"taituo\">"+[[${bookVos}]][i].bookName+"</p>\n" +
+                "                        <p>"+[[${bookVos}]][i].authorName+"</p>\n" +
+                "                        <p class=\"text\">"+[[${bookVos}]][i].bookDesc+"</p>\n" +
+                "                    </div>\n" +
+                "                </div>\n" +
+                "            </li>")
+        }
+    })
+
+    $(".buttonclass").mousemove(function () {
+        $(".buttonclass").css('background-image','url(/img/enter2.png)')
+    })
+    $(".buttonclass").mouseout(function () {
+        $(".buttonclass").css('background-image','url(/img/enter1.png)')
+    })
+
+    function bookdetail(bookId) {
+        let on = 1;
+        if([[${session.newUser}]]==null){
+            on=0
+        }
+        console.log(on)
+        window.location.href="/book/detail?bookId="+bookId+"&on="+on;
+    }
+</script>
+</body>
+</html>

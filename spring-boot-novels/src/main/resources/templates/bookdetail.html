@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>超超小说门户平台</title>
+    <div th:include="common/css :: css_frag"></div>
+    <style>
+        *{
+            border: 0;
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            background-color: #262626;
+        }
+        #head{
+            width: 100%;
+            height: 73px;
+            position: relative;
+
+            position: relative;
+            border-bottom: #575757 solid 1px;
+            background-color: #2f2f2f;
+        }
+        #logo{
+            position: absolute;
+            width: 13%;
+            height: 70px;
+            margin-left: 20%;
+            margin-top: 5px;
+        }
+        #logo img{
+            width: 100%;
+            height: 100%;
+        }
+        #input{
+            width: 20%;
+            height: 35px;
+            background-color: #3d3d3d;
+            color: #898989;
+            padding-left: 20px;
+            border-radius: 20px;
+            position: absolute;
+            margin-left: 40%;
+            margin-top: 26px;
+            line-height: 35px;
+        }
+
+        .bookBody .bookData{
+            width: 63%;
+            margin: auto;
+            background-color: #2f2f2f;
+            padding-top: 10px;
+        }
+        .bookBody .bookData .bookDesc{
+            width: 90%;
+            height: 400px;
+            margin:auto;
+            position: relative;
+            border-bottom: 1px solid #5e5e5e;
+        }
+        .bookBody .bookData .bookDesc .tu{
+            width: 26%;
+            height: 300px;
+            background-color: black;
+            position: absolute;
+            margin-top: 42px;
+            margin-left: 2%;
+        }
+        .bookBody .bookData .bookDesc .tu img{
+           width: 100%;
+            height: 100%;
+        }
+        .bookBody .bookData .bookDesc .desc{
+            position: absolute;
+            width: 70%;
+            height: 300px;
+            margin-left: 30%;
+            margin-top: 41px;
+        }
+        .tableName{
+            color: white;
+            font-size: 30px;
+            line-height: 80px;
+            font-weight: bold;
+        }
+        .typeName{
+            margin-left: 20px;
+            border: 1px solid cornflowerblue;
+            border-radius: 12px;
+            padding: 9px;
+            text-align: center;
+            color: cornflowerblue;
+        }
+        .autorName{
+            color: blue;
+            font-size: 17px;
+            margin-top: 20px;
+            margin-left: 5px;
+        }
+        .buttonOne {
+            margin-top: 50px;
+            margin-left: 110px;
+        }
+        .buttonTow {
+            margin-top: 50px;
+            margin-left: 80px;
+            background-color: #793f3d;
+            border: none;
+        }
+        .bookxianqing{
+            font-size: 17px;
+            line-height: 31px;
+            margin-left: 31px;
+            color: white;
+        }
+        .bookBody .bookData .common{
+            width: 90%;
+            margin:30px auto;
+        }
+        #home{
+            color: #c7c5c5;
+            width: 80%;
+            margin: 25px auto;
+            font-size: 15px;
+            padding-bottom: 100px;
+        }
+        .zuoping{
+            color: #c7c5c5;
+        }
+        #profile{
+            padding-bottom: 100px;
+        }
+        #profile table{
+            color: #c7c5c5;
+            width: 90%;
+            margin: 20px auto;
+        }
+        #profile a{
+            text-decoration: none;
+            color: #c7c5c5;
+        }
+        #profile a:hover{
+            color: #939292;
+        }
+
+    </style>
+    <script type="text/javascript" th:src="@{/webjars/jquery/3.6.1/dist/jquery.js}"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap.js}"></script>
+</head>
+<body>
+
+    <div id="head">
+        <div th:replace="common/head :: head_login"></div>
+        <div id="logo" onclick="window.location.href='/index'"><img th:src="@{/img/logo.png}"></div>
+        <div id="input">搜索</div>
+    </div>
+
+    <div class="bookBody">
+        <div class="bookData">
+            <div class="bookDesc">
+                <div class="tu">
+                    <img th:src="@{${bookdetailvo.bookImg}}">
+                </div>
+                <div class="desc">
+                    <p class="tableName" th:text="${bookdetailvo.bookName}"></p>
+                    <span class="typeName" th:text="${bookdetailvo.typeName}"></span>
+                    <p class="autorName" th:text="${bookdetailvo.authorName}"></p>
+                    <p class="bookxianqing">86.81万字&nbsp&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp&nbsp&nbsp9000点击率&nbsp&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp&nbsp8000收藏率</p>
+                    <button class="btn btn-primary buttonOne" type="button">开始阅读</button>
+                    <button class="btn btn-primary buttonTow" type="button">加入书架</button>
+                </div>
+            </div>
+
+            <div class="common">
+
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active "><a class="zuoping" href="#home" aria-controls="home" role="tab" data-toggle="tab">作品信息</a></li>
+                    <li role="presentation"><a  class="zuoping" href="#profile" aria-controls="profile" role="tab" data-toggle="tab">目录</a></li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane fade in active" id="home" th:text="${bookdetailvo.bookDesc}"></div>
+                    <div role="tabpanel" class="tab-pane fade" id="profile">
+                        <table id="otable" >
+<!--                            <tr>-->
+<!--                                <td><a href="#">第0章 序 之一部小说的诞生</a></td>-->
+<!--                                <td><a href="#">第0章 序 之一部小说的诞生</a></td>-->
+<!--                            </tr>-->
+<!--                            <tr>-->
+<!--                                <td><a href="#">第0章 序 之一部小说的诞生</a></td>-->
+<!--                                <td><a href="#">第0章 序 之一部小说的诞生</a></td>-->
+<!--                            </tr>-->
+<!--                            <tr>-->
+<!--                                <td><a href="#">第0章 序 之一部小说的诞生</a></td>-->
+<!--                                <td><a href="#">第0章 序 之一部小说的诞生</a></td>-->
+<!--                            </tr>-->
+<!--                            <tr>-->
+<!--                                <td><a href="#">第0章 序 之一部小说的诞生</a></td>-->
+<!--                                <td><a href="#">第0章 序 之一部小说的诞生</a></td>-->
+<!--                            </tr>-->
+
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" th:inline="javascript">
+        $(document).ready(function () {
+            $("#odiv").css("margin-top","9px")
+        })
+
+        $("#input").click(function () {
+            window.location.href="/book/sousuo"
+        })
+
+
+        $(document).ready(function () {
+            if([[${session.newUser}]] !=null) {
+                $.ajax({
+                    url: "/book/isCollect",
+                    data: {userId: [[${session.newUser}]].userId, bookId: [[${bookdetailvo.bookId}]]},
+                    type: "GET",
+                    dataType: "json",
+                    success: function (data) {
+                        if (data) {
+                            $(".buttonTow").text("取消加入")
+                        } else {
+                            $(".buttonTow").text("加入书架")
+                        }
+                    }
+                });
+            }
+        })
+
+        if([[${session.newUser}]] !=null){
+            $(".buttonTow").click(function () {
+                if($(".buttonTow").text()=="加入书架"){
+                    $(".buttonTow").text("取消加入")
+                    let xmlHttpThree= new XMLHttpRequest();
+                    xmlHttpThree.open("GET","/book/insert?userId="+[[${session.newUser}]].userId+"&bookId="+[[${bookdetailvo.bookId}]])
+                    xmlHttpThree.send();
+                }else {
+                    $(".buttonTow").text("加入书架")
+                    let xmlHttpThree= new XMLHttpRequest();
+                    xmlHttpThree.open("GET","/book/delete?userId="+[[${session.newUser}]].userId+"&bookId="+[[${bookdetailvo.bookId}]])
+                    xmlHttpThree.send();
+                }
+            })
+        }
+
+
+
+        $(".buttonTow").mousemove(function () {
+            $(".buttonTow").css("background-color","#761c19")
+        })
+
+        $(".buttonTow").mouseout(function () {
+            $(".buttonTow").css("background-color","#793f3d")
+        })
+
+        $('#myTabs a').click(function (e) {
+            e.preventDefault()
+            $(this).tab('show')
+        })
+        $('#myTabs a[href="#profile"]').tab('show') // Select tab by name
+        $('#myTabs a:first').tab('show') // Select first tab
+        $('#myTabs a:last').tab('show') // Select last tab
+        $('#myTabs li:eq(2) a').tab('show') // Select third tab (0-indexed)
+
+        $(document).ready(function () {
+            let xmlhttpThree= new XMLHttpRequest();
+            xmlhttpThree.open("GET","/directory/"+[[${bookdetailvo.bookId}]],true)
+            xmlhttpThree.send();
+            xmlhttpThree.onreadystatechange=function () {
+                if(xmlhttpThree.readyState==4&&xmlhttpThree.status==200){
+                    let otable = document.getElementById("otable");
+
+                    let resultList = xmlhttpThree.responseText;
+                    let resultJson = JSON.parse(resultList);
+
+                    let bookDirectory=null;
+                    let directoryId =null;
+
+                    for (let i =0;i<resultJson.length;i++){
+                        if(i%2!=0){
+                            let otr = document.createElement("tr");
+                            let otd = document.createElement("td");
+                            let ootd = document.createElement("td");
+                            let  oa = document.createElement("a");
+                            let ooa = document.createElement("a");
+                            oa.innerHTML=bookDirectory;
+                            oa.href="../reader/"+directoryId;
+                            otd.appendChild(oa);
+
+                            ooa.innerHTML=resultJson[i].bookDirectory;
+                            ooa.href="../reader/"+resultJson[i].directoryId
+                            ootd.appendChild(ooa);
+
+                            otr.appendChild(otd);
+                            otr.appendChild(ootd);
+                            otable.appendChild(otr);
+                            bookDirectory=null;
+                            directoryId =null;
+                        }else {
+                            if(i==resultJson.length-1){
+                                let otr = document.createElement("tr");
+                                let otd = document.createElement("td");
+                                let  oa = document.createElement("a");
+                                oa.innerHTML=resultJson[i].bookDirectory;
+                                oa.href="../reader/"+resultJson[i].directoryId
+                                otd.appendChild(oa);
+                                otr.appendChild(otd);
+                                otable.appendChild(otr);
+                            }else {
+                                bookDirectory = resultJson[i].bookDirectory;
+                                directoryId = resultJson[i].directoryId;
+                            }
+                        }
+                    }
+                    otable.className="table";
+                }
+            }
+        })
+    </script>
+</body>
+</html>

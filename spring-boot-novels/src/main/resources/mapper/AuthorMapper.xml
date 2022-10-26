@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.luochao.dao.AuthorMapper">
+  <resultMap id="BaseResultMap" type="com.luochao.domain.Author">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="author_id" jdbcType="VARCHAR" property="authorId" />
+    <result column="author_name" jdbcType="VARCHAR" property="authorName" />
+    <result column="author_desc" jdbcType="VARCHAR" property="authorDesc" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from author
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.luochao.domain.Author">
+    insert into author (id, author_id, author_name, 
+      author_desc)
+    values (#{id,jdbcType=BIGINT}, #{authorId,jdbcType=VARCHAR}, #{authorName,jdbcType=VARCHAR}, 
+      #{authorDesc,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.luochao.domain.Author">
+    update author
+    set author_id = #{authorId,jdbcType=VARCHAR},
+      author_name = #{authorName,jdbcType=VARCHAR},
+      author_desc = #{authorDesc,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select id, author_id, author_name, author_desc
+    from author
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, author_id, author_name, author_desc
+    from author
+  </select>
+</mapper>
