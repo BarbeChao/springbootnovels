@@ -3,31 +3,41 @@
 <head>
     <title th:text="会员注册"></title>
     <link rel="stylesheet" href="/css/user.css">
+    <style type="text/css>">
+        *{
+            margin: 0;
+            padding: 0;
+            border: 0;
+        }
+    </style>
 </head>
-<body class="">
 
+<body style="background-color: #343434;">
+<div id="logo" style="height: 100px;width: 330px;margin-top: 50px;margin-left: 50px;margin-bottom: 20px;">
+    <img onclick="window.location.href='/index'" th:src="@{/img/logo.png}">
+</div>
 <div class="main box_center cf">
-    <div class="userBox cf">
+    <div class="userBox cf" style="background-color: #616060;margin-top: 20px;width: 80%;height: 650px;">
         <form method="post" th:action="@{/register}" id="form2">
             <div class="user_l">
                 <h3 th:text="注册"></h3>
                 <ul class="log_list" style="list-style: none">
                     <li><span id="LabErr"></span></li>
-                    <li><input name="userId" type="text" id="txtUName" class="s_input icon_name" placeholder="请输入您的手机号码"></li>
+                    <li><input name="userId" type="text" id="txtUName" class="s_input icon_name" placeholder="请输入您的账号"></li>
                     <li><input name="name" type="text" id="txtName" class="s_input icon_key" placeholder="请输入昵称"></li>
                     <li style="margin-bottom: 10px;margin-left: 50px">
                         <input name="sex" type="radio" id="txtSex1" value="男"><label for="txtSex1">男</label>
                         <input name="sex" type="radio" id="txtSex2" value="女"><label for="txtSex2">女</label>
                     </li>
-                    <li><input name="age" type="password" id="txtAge" class="s_input icon_key" placeholder="请输入年龄"></li>
+                    <li><input name="age" type="text" id="txtAge" class="s_input icon_key" placeholder="请输入年龄"></li>
                     <li><input name="userPassword" type="password" id="txtPassword" class="s_input icon_key" placeholder="请输入密码：6-20位字母/数字"></li>
                     <li><input type="submit" name="btnRegister" value="注册" id="btnRegister" class="btn_red"></li>
                 </ul>
             </div>
         </form>
-        <div class="user_r">
-            <p class="tit">已有账号？</p>
-            <a href="/book/login" class="btn_ora_white">立即登录</a>
+        <div class="user_r" style="padding: 200px 70px;">
+            <p style="color: white;" class="tit">已有账号？</p>
+            <a style="text-decoration: none;" href="/book/login" class="btn_ora_white">立即登录</a>
             <div class="fast_login" style="display:none;">
                 <div class="fast_tit">
                     <p class="lines"></p>
@@ -36,6 +46,8 @@
         </div>
     </div>
 </div>
+</div>
+</body>
     <script src="/webjars/jquery/3.6.1/dist/jquery.js"></script>
 <script language="javascript" type="text/javascript">
     $("#chkd").click();
@@ -76,5 +88,5 @@
         }
     })
 </script>
-</div></body>
+
 </html>
