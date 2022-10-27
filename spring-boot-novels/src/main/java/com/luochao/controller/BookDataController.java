@@ -32,6 +32,7 @@ public class BookDataController {
     @RequestMapping("/reader/{directoryId}")
     public String selectBydirectoryId(@PathVariable("directoryId") String directoryId, Model model){
         BookDataVo bookDataVo = bookDataService.selectBydirectoryId(directoryId);
+        System.out.println(bookDataVo);
         model.addAttribute("bookDataVo",bookDataVo);
         return "bookreader";
     }
