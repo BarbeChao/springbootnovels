@@ -1,4 +1,4 @@
-# springbootnovels
+# 小说门户平台
 1、登录界面
 ![img](https://github.com/BarbeChao/springbootnovels/blob/master/spring-boot-novels/src/main/resources/static/img/git/login.jpg)
 
